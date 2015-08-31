@@ -6,45 +6,40 @@ SCRIPTDIR=`(cd $SCRIPTDIR ; pwd)`
 #get working directory
 TOP=`pwd`
 
-if [ "x$WORKSPACE" = "x" ]; then
-    WORKSPACE=$TOP
-    MYWORKSPACE=$TOP
-fi
-
 #clean up thinks
-rm -Rf ${MYWORKSPACE}/src
-mkdir -p ${MYWORKSPACE}/src/binutils
-mkdir -p ${MYWORKSPACE}/src/gcc
-mkdir -p ${MYWORKSPACE}/src/gmp
-mkdir -p ${MYWORKSPACE}/src/mpfr
-mkdir -p ${MYWORKSPACE}/src/mpc
-mkdir -p ${MYWORKSPACE}/src/kernel
-mkdir -p ${MYWORKSPACE}/src/uclibc
-mkdir -p ${MYWORKSPACE}/src/gdb
+rm -Rf ${TOP}/src
+mkdir -p ${TOP}/src/binutils
+mkdir -p ${TOP}/src/gcc
+mkdir -p ${TOP}/src/gmp
+mkdir -p ${TOP}/src/mpfr
+mkdir -p ${TOP}/src/mpc
+mkdir -p ${TOP}/src/kernel
+mkdir -p ${TOP}/src/uclibc
+mkdir -p ${TOP}/src/gdb
 
 # copy directory
 #gmp
-cp -Rf ${WORKSPACE}/scratch/gmp/* ${MYWORKSPACE}/src/gmp
+cp -Rf ${TOP}/scratch/gmp/* ${TOP}/src/gmp
 #mpfr
-cp -Rf ${WORKSPACE}/scratch/mpfr/* ${MYWORKSPACE}/src/mpfr
+cp -Rf ${TOP}/scratch/mpfr/* ${TOP}/src/mpfr
 #mpc
-cp -Rf ${WORKSPACE}/scratch/mpc/* ${MYWORKSPACE}/src/mpc
+cp -Rf ${TOP}/scratch/mpc/* ${TOP}/src/mpc
 #binutils
-cp -Rf ${WORKSPACE}/scratch/binutils/* ${MYWORKSPACE}/src/binutils
+cp -Rf ${TOP}/scratch/binutils/* ${TOP}/src/binutils
 #gcc
-cp -Rf ${WORKSPACE}/scratch/gcc/* ${MYWORKSPACE}/src/gcc
+cp -Rf ${TOP}/scratch/gcc/* ${TOP}/src/gcc
 #kernel
-cp -Rf ${WORKSPACE}/scratch/kernel/* ${MYWORKSPACE}/src/kernel
-cp -RfL ${WORKSPACE}/scratch/kernel/.git ${MYWORKSPACE}/src/kernel/ || true
+cp -Rf ${TOP}/scratch/kernel/* ${TOP}/src/kernel
+cp -RfL ${TOP}/scratch/kernel/.git ${TOP}/src/kernel/ || true
 #uclibc
-cp -Rf ${WORKSPACE}/scratch/uclibc/* ${MYWORKSPACE}/src/uclibc
+cp -Rf ${TOP}/scratch/uclibc/* ${TOP}/src/uclibc
 #gdb
-cp -Rf ${WORKSPACE}/scratch/gdb/* ${MYWORKSPACE}/src/gdb
+cp -Rf ${TOP}/scratch/gdb/* ${TOP}/src/gdb
 #scripts
-cp -Rf ${WORKSPACE}/scratch/build/scripts ${MYWORKSPACE}/src
-cp -Rf ${WORKSPACE}/scratch/variant/* ${MYWORKSPACE}/src/scripts
+cp -Rf ${TOP}/scratch/build/scripts ${TOP}/src
+cp -Rf ${TOP}/scratch/variant/* ${TOP}/src/scripts
 #add version file
-cd ${WORKSPACE}/.repo/manifests
+cd ${TOP}/.repo/manifests
 VERSION=`git describe --always --dirty --tags --long --abbrev=8 2>/dev/null`
-echo ${VERSION} > ${MYWORKSPACE}/src/version
+echo ${VERSION} > ${TOP}/src/version
 

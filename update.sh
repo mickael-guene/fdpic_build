@@ -6,34 +6,29 @@ SCRIPTDIR=`(cd $SCRIPTDIR ; pwd)`
 #get working directory
 TOP=`pwd`
 
-if [ "x$WORKSPACE" = "x" ]; then
-    WORKSPACE=$TOP
-    MYWORKSPACE=$TOP
-fi
-
 #copy with update
 #gmp
-cp -Ru ${WORKSPACE}/scratch/gmp/* ${MYWORKSPACE}/src/gmp
+cp -Ru ${TOP}/scratch/gmp/* ${TOP}/src/gmp
 #mpfr
-cp -Ru ${WORKSPACE}/scratch/mpfr/* ${MYWORKSPACE}/src/mpfr
+cp -Ru ${TOP}/scratch/mpfr/* ${TOP}/src/mpfr
 #mpc
-cp -Ru ${WORKSPACE}/scratch/mpc/* ${MYWORKSPACE}/src/mpc
+cp -Ru ${TOP}/scratch/mpc/* ${TOP}/src/mpc
 #binutils
-cp -Ru ${WORKSPACE}/scratch/binutils/* ${MYWORKSPACE}/src/binutils
+cp -Ru ${TOP}/scratch/binutils/* ${TOP}/src/binutils
 #gcc
-cp -Ru ${WORKSPACE}/scratch/gcc/* ${MYWORKSPACE}/src/gcc
+cp -Ru ${TOP}/scratch/gcc/* ${TOP}/src/gcc
 #kernel
-cp -Ru ${WORKSPACE}/scratch/kernel/* ${MYWORKSPACE}/src/kernel
-cp -RuL ${WORKSPACE}/scratch/kernel/.git ${MYWORKSPACE}/src/kernel/ || true
+cp -Ru ${TOP}/scratch/kernel/* ${TOP}/src/kernel
+cp -RuL ${TOP}/scratch/kernel/.git ${TOP}/src/kernel/ || true
 #uclibc
-cp -Ru ${WORKSPACE}/scratch/uclibc/* ${MYWORKSPACE}/src/uclibc
+cp -Ru ${TOP}/scratch/uclibc/* ${TOP}/src/uclibc
 #gdb
-cp -Ru ${WORKSPACE}/scratch/gdb/* ${MYWORKSPACE}/src/gdb
+cp -Ru ${TOP}/scratch/gdb/* ${TOP}/src/gdb
 #scripts
-cp -Ru ${WORKSPACE}/scratch/build/scripts ${MYWORKSPACE}/src
-cp -Ru ${WORKSPACE}/scratch/variant/* ${MYWORKSPACE}/src/scripts
+cp -Ru ${TOP}/scratch/build/scripts ${TOP}/src
+cp -Ru ${TOP}/scratch/variant/* ${TOP}/src/scripts
 #add version file
-cd ${WORKSPACE}/.repo/manifests
+cd ${TOP}/.repo/manifests
 VERSION=`git describe --always --dirty --tags --long --abbrev=8 2>/dev/null`
-echo ${VERSION} > ${MYWORKSPACE}/src/version
+echo ${VERSION} > ${TOP}/src/version
 
