@@ -10,7 +10,8 @@ TOP=`pwd`
 . $SCRIPTDIR/variant.sh
 
 # define version
-VERSION=`cat ${SCRIPTDIR}/../version`
+VERSION=`date +%Y%m%d-%H%M%S`-`cat ${SCRIPTDIR}/../version`
+VERSION_MSG="$VERSION build on "`uname -n`" by "`whoami`
 
 # define target name
 TARGET=arm-v7-linux-uclibceabi
@@ -59,7 +60,7 @@ CFLAGS=$CFLAGS_TOOLSET ${SCRIPTDIR}/../binutils/configure   --target=${TARGET} \
                                                             --enable-poison-system-directories \
                                                             --disable-nls \
                                                             --with-sysroot=${TOP}/install/sysroot \
-                                                            --with-pkgversion="${VERSION}" \
+                                                            --with-pkgversion="${VERSION_MSG}" \
                                                             --without-bugurl \
                                                             --disable-werror
 make all -j${JOBNB}
@@ -171,7 +172,7 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --without-ppl \
                                                             --disable-nls \
                                                             --enable-libstdcxx-time \
-                                                            --with-pkgversion="${VERSION}" \
+                                                            --with-pkgversion="${VERSION_MSG}" \
                                                             --without-bugurl
 make all -j${JOBNB}
 make install
@@ -182,7 +183,7 @@ cd ${TOP}/build/gdb
 CFLAGS="$CFLAGS_TOOLSET -static" ${SCRIPTDIR}/../gdb/configure  --prefix=${TOP}/install \
                                                                 --target=${TARGET} \
                                                                 --with-sysroot=${TOP}/install/sysroot \
-                                                                --with-pkgversion="${VERSION}" \
+                                                                --with-pkgversion="${VERSION_MSG}" \
                                                                 --without-bugurl \
                                                                 --disable-werror
 make all -j${JOBNB}
