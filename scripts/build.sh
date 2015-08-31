@@ -197,8 +197,8 @@ if [ "$STRIP" ] ; then
     tar -C install --atime-preserve -cf - . | tar --atime-preserve -xf - -C $WDIR
     find $WDIR -type f -exec strip -p {} \; > /dev/null 2>&1
     find $WDIR -exec install/bin/${TARGET}-strip -p {} \; > /dev/null 2>&1
-    tar -C $WDIR --atime-preserve -cf out/toolset-${VERSION}-${SUBARCH}.tgz .
+    tar -C $WDIR --atime-preserve -czf out/toolset-${VERSION}-${SUBARCH}.tgz .
 else
-    tar -C install --atime-preserve -cf out/toolset-${VERSION}-${SUBARCH}.tgz .
+    tar -C install --atime-preserve -czf out/toolset-${VERSION}-${SUBARCH}.tgz .
 fi
 
