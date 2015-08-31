@@ -192,7 +192,7 @@ make install
 #######################################################################################################
 #generate tarball
 cd ${TOP}
-if [ ! "$STRIP" ] ; then
+if [ "$STRIP" ] ; then
     WDIR=`mktemp -d` && trap "rm -Rf $WDIR" EXIT
     tar -C install --atime-preserve -cf - . | tar --atime-preserve -xf - -C $WDIR
     find $WDIR -type f -exec strip -p {} \; > /dev/null 2>&1
