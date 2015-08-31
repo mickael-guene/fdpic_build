@@ -192,5 +192,13 @@ make install
 #######################################################################################################
 #generate tarball
 cd ${TOP}
-tar -C install -cf out/toolset-${VERSION}-${SUBARCH}.tgz .
+if [ ! "$STRIP" ] ; then
+    WDIR=`mktemp -d` && trap "rm -Rf $WDIR" EXIT
+    tar -C install --atime-preserve -cf - . | tar --atime-preserve -xf - -C $WDIR
+    find $WDIR -type f -exec strip -p {} \; > /dev/null 2>&1
+    find $WDIR -exec install/bin/${TARGET}-strip -p {} \; > /dev/null 2>&1
+    tar -C $WDIR --atime-preserve -cf out/toolset-${VERSION}-${SUBARCH}.tgz .
+else
+    tar -C install --atime-preserve -cf out/toolset-${VERSION}-${SUBARCH}.tgz .
+fi
 
