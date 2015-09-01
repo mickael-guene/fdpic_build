@@ -57,14 +57,13 @@ cp ${TOP}/build/proot/proot . ${TOP}/install/tools/bin/.
 #######################################################################################################
 ##qemu
 cd ${TOP}/build/qemu
-cp -Rf ${TOP}/scratch/qemu/* .
-CFLAGS="$CFLAGS_TOOLSET" ./configure                        --prefix=${TOP}/install/tools \
+CFLAGS="$CFLAGS_TOOLSET" ${TOP}/scratch/qemu/configure      --prefix=${TOP}/install/tools \
                                                             --disable-werror \
                                                             --target-list=arm-linux-user \
                                                             --enable-fdpic \
                                                             --disable-pie \
                                                             --disable-guest-base \
-                                                            --with-default-cpu-model="cortex-m3"
+                                                            --with-default-cpu-model="${QEMU_DEFAULT_CPU_MODEL}"
 make all -j${JOBNB}
 make install
 
