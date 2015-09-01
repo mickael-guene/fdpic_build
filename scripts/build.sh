@@ -5,12 +5,17 @@ SCRIPTDIR=`dirname $0`
 SCRIPTDIR=`(cd $SCRIPTDIR ; pwd)`
 #get working directory
 TOP=`pwd`
+isDelivery=`echo $1 | grep delivery` || true
 
 #include configuration
 . $SCRIPTDIR/variant.sh
 
 # define version
-VERSION=`date +%Y%m%d-%H%M%S`-`cat ${SCRIPTDIR}/../version`
+if [ ! "$isDelivery" ] ; then
+    VERSION=`date +%Y%m%d-%H%M%S`-`cat ${SCRIPTDIR}/../version`
+else
+    VERSION=`cat ${SCRIPTDIR}/../version`
+fi
 VERSION_MSG="$VERSION build on "`uname -n`" by "`whoami`
 
 # define target name
