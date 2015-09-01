@@ -57,7 +57,8 @@ cp ${TOP}/build/proot/proot . ${TOP}/install/tools/bin/.
 #######################################################################################################
 ##qemu
 cd ${TOP}/build/qemu
-CFLAGS="$CFLAGS_TOOLSET" ${TOP}/scratch/qemu/configure      --prefix=${TOP}/install/tools \
+cp -Rf ${TOP}/scratch/qemu/* .
+CFLAGS="$CFLAGS_TOOLSET" ./configure                        --prefix=${TOP}/install/tools \
                                                             --disable-werror \
                                                             --target-list=arm-linux-user \
                                                             --enable-fdpic \

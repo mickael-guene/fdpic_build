@@ -74,7 +74,8 @@ make install
 #######################################################################################################
 #gmp
 cd ${TOP}/build/gmp
-CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/gmp/configure         --prefix=${TOP}/install_host \
+cp -Rf ${TOP}/scratch/gmp/* .
+CFLAGS=$CFLAGS_TOOLSET ./configure                          --prefix=${TOP}/install_host \
                                                             --enable-cxx \
                                                             --disable-shared
 make all -j${JOBNB}
@@ -83,7 +84,8 @@ make install
 #######################################################################################################
 #mpfr
 cd ${TOP}/build/mpfr
-CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/mpfr/configure        --prefix=${TOP}/install_host \
+cp -Rf ${TOP}/scratch/mpfr/* .
+CFLAGS=$CFLAGS_TOOLSET ./configure                          --prefix=${TOP}/install_host \
                                                             --with-gmp=${TOP}/install_host \
                                                             --disable-shared
 make all -j${JOBNB}
@@ -92,7 +94,8 @@ make install
 #######################################################################################################
 #mpc
 cd ${TOP}/build/mpc
-CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/mpc/configure         --prefix=${TOP}/install_host \
+cp -Rf ${TOP}/scratch/mpc/* .
+CFLAGS=$CFLAGS_TOOLSET ./configure                          --prefix=${TOP}/install_host \
                                                             --with-gmp=${TOP}/install_host \
                                                             --with-mpfr=${TOP}/install_host \
                                                             --disable-shared
