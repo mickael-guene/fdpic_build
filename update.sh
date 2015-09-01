@@ -24,6 +24,8 @@ cp -RuL ${TOP}/scratch/kernel/.git ${TOP}/src/kernel/ || true
 cp -Ru ${TOP}/scratch/uclibc/* ${TOP}/src/uclibc
 #gdb
 cp -Ru ${TOP}/scratch/gdb/* ${TOP}/src/gdb
+#qemu
+cp -Ru ${TOP}/scratch/qemu/* ${TOP}/src/qemu
 #scripts
 cp -Ru ${TOP}/scratch/build/scripts ${TOP}/src
 cp -Ru ${TOP}/scratch/variant/* ${TOP}/src/scripts

@@ -16,6 +16,7 @@ mkdir -p ${TOP}/src/mpc
 mkdir -p ${TOP}/src/kernel
 mkdir -p ${TOP}/src/uclibc
 mkdir -p ${TOP}/src/gdb
+mkdir -p ${TOP}/src/qemu
 
 # copy directory
 #gmp
@@ -35,6 +36,8 @@ cp -RfL ${TOP}/scratch/kernel/.git ${TOP}/src/kernel/ || true
 cp -Rf ${TOP}/scratch/uclibc/* ${TOP}/src/uclibc
 #gdb
 cp -Rf ${TOP}/scratch/gdb/* ${TOP}/src/gdb
+#qemu
+cp -Rf ${TOP}/scratch/qemu/* ${TOP}/src/qemu
 #scripts
 cp -Rf ${TOP}/scratch/build/scripts ${TOP}/src
 cp -Rf ${TOP}/scratch/variant/* ${TOP}/src/scripts
