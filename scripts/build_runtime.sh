@@ -8,7 +8,7 @@ TOP=`pwd`
 isDelivery=`echo $1 | grep delivery` || true
 
 #include configuration
-. $SCRIPTDIR/variant.sh
+. ${TOP}/scratch/variant/variant.sh
 
 # define version
 if [ ! "$isDelivery" ] ; then
@@ -36,7 +36,7 @@ else
 fi
 
 #create build and install dir
-rm ${TOP}/out/runtime-*
+rm -f ${TOP}/out/runtime-*
 rm -Rf ${TOP}/build/qemu
 mkdir -p ${TOP}/build/qemu
 rm -Rf ${TOP}/build/gdbserver
@@ -45,7 +45,7 @@ rm -Rf ${TOP}/build/proot
 mkdir -p ${TOP}/build/proot
 rm -Rf ${TOP}/install/rootfs 
 mkdir ${TOP}/install/rootfs
-rm -Rf -p ${TOP}/install/tools
+rm -Rf ${TOP}/install/tools
 mkdir -p ${TOP}/install/tools/bin
 
 #######################################################################################################
@@ -57,7 +57,8 @@ cp ${TOP}/build/proot/proot . ${TOP}/install/tools/bin/.
 #######################################################################################################
 ##qemu
 cd ${TOP}/build/qemu
-CFLAGS="$CFLAGS_TOOLSET" ${SCRIPTDIR}/../qemu/configure     --prefix=${TOP}/install/tools \
+CFLAGS="$CFLAGS_TOOLSET" ${TOP}/scratch/qemu/configure      --prefix=${TOP}/install/tools \
+                                                            --disable-werror \
                                                             --target-list=arm-linux-user \
                                                             --enable-fdpic \
                                                             --disable-pie \
@@ -70,7 +71,7 @@ make install
 ###gdbserver
 cd ${TOP}/build/gdbserver
  #configure
-PATH=${TOP}/install/bin:${PATH} CFLAGS="$CFLAGS_TARGET -D__UCLIBC__ -DHAS_NOMMU" ${SCRIPTDIR}/../gdb/gdb/gdbserver/configure \
+PATH=${TOP}/install/bin:${PATH} CFLAGS="$CFLAGS_TARGET -D__UCLIBC__ -DHAS_NOMMU" ${TOP}/scratch/gdb/gdb/gdbserver/configure \
                                                             --prefix=${TOP}/install/rootfs \
                                                             --program-prefix="" \
                                                             --host=${TARGET} \

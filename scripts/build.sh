@@ -8,7 +8,7 @@ TOP=`pwd`
 isDelivery=`echo $1 | grep delivery` || true
 
 #include configuration
-. $SCRIPTDIR/variant.sh
+. ${TOP}/scratch/variant/variant.sh
 
 # define version
 if [ ! "$isDelivery" ] ; then
@@ -60,7 +60,7 @@ fi
 #######################################################################################################
 ##binutils
 cd ${TOP}/build/binutils
-CFLAGS=$CFLAGS_TOOLSET ${SCRIPTDIR}/../binutils/configure   --target=${TARGET} \
+CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/binutils/configure    --target=${TARGET} \
                                                             --prefix=${TOP}/install \
                                                             --enable-poison-system-directories \
                                                             --disable-nls \
@@ -74,7 +74,7 @@ make install
 #######################################################################################################
 #gmp
 cd ${TOP}/build/gmp
-CFLAGS=$CFLAGS_TOOLSET ${SCRIPTDIR}/../gmp/configure        --prefix=${TOP}/install_host \
+CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/gmp/configure         --prefix=${TOP}/install_host \
                                                             --enable-cxx \
                                                             --disable-shared
 make all -j${JOBNB}
@@ -83,7 +83,7 @@ make install
 #######################################################################################################
 #mpfr
 cd ${TOP}/build/mpfr
-CFLAGS=$CFLAGS_TOOLSET ${SCRIPTDIR}/../mpfr/configure       --prefix=${TOP}/install_host \
+CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/mpfr/configure        --prefix=${TOP}/install_host \
                                                             --with-gmp=${TOP}/install_host \
                                                             --disable-shared
 make all -j${JOBNB}
@@ -92,7 +92,7 @@ make install
 #######################################################################################################
 #mpc
 cd ${TOP}/build/mpc
-CFLAGS=$CFLAGS_TOOLSET ${SCRIPTDIR}/../mpc/configure        --prefix=${TOP}/install_host \
+CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/mpc/configure         --prefix=${TOP}/install_host \
                                                             --with-gmp=${TOP}/install_host \
                                                             --with-mpfr=${TOP}/install_host \
                                                             --disable-shared
@@ -102,7 +102,7 @@ make install
 #######################################################################################################
 #gcc1
 cd ${TOP}/build/gcc1
-CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFLAGS_TARGET ${SCRIPTDIR}/../gcc/configure \
+CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFLAGS_TARGET ${TOP}/scratch/gcc/configure \
                                                             --prefix=${TOP}/install \
                                                             --target=${TARGET} \
                                                             --with-gmp=${TOP}/install_host \
@@ -130,7 +130,7 @@ make install
 #kernel headers
 cd ${TOP}/build/kernelheader
  #copy kernel source tree
-cp -Rf ${SCRIPTDIR}/../kernel/* .
+cp -Rf ${TOP}/scratch/kernel/* .
  #build and install
 make headers_install ARCH=arm INSTALL_HDR_PATH=${TOP}/install/sysroot/usr CROSS_COMPILE=${TARGET}-
 
@@ -138,7 +138,7 @@ make headers_install ARCH=arm INSTALL_HDR_PATH=${TOP}/install/sysroot/usr CROSS_
 #uclibc
 cd ${TOP}/build/uclibc
  #copy and generate .config
-cp -Rf ${SCRIPTDIR}/../uclibc/* .
+cp -Rf ${TOP}/scratch/uclibc/* .
 if [ ! "$DEBUG" ] ; then
     sed "s;__KERNEL_HEADERS__;${TOP}/install/sysroot/usr/include;g" config_template | \
     sed "s;__CROSS_COMPILER_PREFIX__;${TARGET}-;g" | \
@@ -158,7 +158,7 @@ PATH=${TOP}/install/bin:${PATH} make PREFIX=${TOP}/install/sysroot install
 #######################################################################################################
 #gcc2
 cd ${TOP}/build/gcc2
-CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFLAGS_TARGET ${SCRIPTDIR}/../gcc/configure \
+CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFLAGS_TARGET ${TOP}/scratch/gcc/configure \
                                                             --prefix=${TOP}/install \
                                                             --target=${TARGET} \
                                                             --with-gmp=${TOP}/install_host \
@@ -185,7 +185,7 @@ make install
 #######################################################################################################
 #gdb
 cd ${TOP}/build/gdb
-CFLAGS="$CFLAGS_TOOLSET -static" ${SCRIPTDIR}/../gdb/configure  --prefix=${TOP}/install \
+CFLAGS="$CFLAGS_TOOLSET -static" ${TOP}/scratch/gdb/configure   --prefix=${TOP}/install \
                                                                 --target=${TARGET} \
                                                                 --with-sysroot=${TOP}/install/sysroot \
                                                                 --with-pkgversion="${VERSION_MSG}" \
