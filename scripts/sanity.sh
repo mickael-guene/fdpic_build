@@ -16,8 +16,12 @@ tar xf ${TOP}/out/runtime-*
 
 #generate test.c
 cat << EOF > test.c
+#include <stdio.h>
+
 int main(int argc, char **argv)
 {
+    printf("Hello from arm fdpic\n");
+
     return 0;
 }
 EOF

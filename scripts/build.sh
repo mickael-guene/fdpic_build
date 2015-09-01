@@ -11,10 +11,11 @@ isDelivery=`echo $1 | grep delivery` || true
 . ${TOP}/scratch/variant/variant.sh
 
 # define version
+cd ${TOP}/.repo/manifests
+VERSION=`git describe --always --dirty --tags --long --abbrev=8 2>/dev/null`
+cd ${TOP}
 if [ ! "$isDelivery" ] ; then
-    VERSION=`date +%Y%m%d-%H%M%S`-`cat ${SCRIPTDIR}/../version`
-else
-    VERSION=`cat ${SCRIPTDIR}/../version`
+    VERSION=`date +%Y%m%d-%H%M%S`-${VERSION}
 fi
 VERSION_MSG="$VERSION build on "`uname -n`" by "`whoami`
 
@@ -44,6 +45,9 @@ mkdir -p ${TOP}/build/gdbserver
 mkdir ${TOP}/install
 mkdir ${TOP}/install/sysroot
 mkdir ${TOP}/out
+
+#save version for runtime package
+echo $VERSION > ${TOP}/build/version
 
 #compilation options
 if [ ! "$DEBUG" ] ; then
