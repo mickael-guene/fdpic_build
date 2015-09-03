@@ -132,11 +132,9 @@ make install
 
 #######################################################################################################
 #kernel headers
-cd ${TOP}/build/kernelheader
- #copy kernel source tree
-cp -Rf ${TOP}/scratch/kernel/* .
- #build and install
-make headers_install ARCH=arm INSTALL_HDR_PATH=${TOP}/install/sysroot/usr CROSS_COMPILE=${TARGET}-
+ #we build out of tree, so jump to kernel sources
+cd ${TOP}/scratch/kernel
+make headers_install ARCH=arm INSTALL_HDR_PATH=${TOP}/install/sysroot/usr CROSS_COMPILE=${TARGET}- O=${TOP}/build/kernelheader
 
 #######################################################################################################
 #uclibc
