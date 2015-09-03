@@ -12,6 +12,6 @@ TAG_NAME=`git describe --tags --always 2>/dev/null`
 cd ${TOP}
 # push packages
 for f in ${TOP}/out/* ; do
-    python ${TOP}/scratch/build/aci/upload_release.py -u mickael-guene -r fdpic_delivery -t $TAG_NAME $f
+    python ${TOP}/scratch/build/aci/upload_release.py -u mickael-guene -r fdpic_manifest -t $TAG_NAME $f
 done
 
