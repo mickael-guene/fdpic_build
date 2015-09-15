@@ -123,6 +123,7 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --disable-libquadmath \
                                                             --disable-multilib \
                                                             --with-arch=${SUBARCH} \
+                                                            --with-mode=${SUBMODE} \
                                                             --without-cloog \
                                                             --without-ppl \
                                                             --disable-nls
@@ -175,6 +176,7 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --disable-libstdcxx-pch \
                                                             --enable-threads=posix \
                                                             --with-arch=${SUBARCH} \
+                                                            --with-mode=${SUBMODE} \
                                                             --without-cloog \
                                                             --without-ppl \
                                                             --disable-nls \
