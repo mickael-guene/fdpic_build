@@ -45,7 +45,7 @@ mkdir -p ${TOP}/install/tools/bin
 
 #######################################################################################################
 ##proot
-wget --no-check-certificate http://portable.proot.me/proot-x86_64 -O ${TOP}/build/proot/proot
+wget --no-check-certificate https://github.com/proot-me/proot-static-build/raw/v5.1.1/static/proot-x86_64 -O ${TOP}/build/proot/proot
 chmod a+x ${TOP}/build/proot/proot
 cp ${TOP}/build/proot/proot . ${TOP}/install/tools/bin/.
 
